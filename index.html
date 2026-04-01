@@ -3,227 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Портфолио разработчика</title>
-
+<title>Современный сайт</title>
 <style>
-:root {
-  --bg: #f0f2f5;
-  --text: #222;
-  --glass: rgba(255,255,255,0.2);
-  --accent: #ff6347;
-}
+/* ===== Стили ===== */
+body { font-family: Arial, sans-serif; margin:0; padding:0; scroll-behavior:smooth; background:#f9f9f9; }
+a { text-decoration:none; color:inherit; }
 
-body.dark {
-  --bg: #0f172a;
-  --text: #f1f5f9;
-  --glass: rgba(255,255,255,0.05);
-}
+.navbar { display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:#333; color:white; position:sticky; top:0; z-index:1000; }
+.nav-links li { display:inline; margin-left:1.5rem; }
+.nav-links a { color:white; font-weight:bold; }
 
-body {
-  margin:0;
-  font-family: Arial;
-  background: var(--bg);
-  color: var(--text);
-  transition:0.3s;
-}
-
-.navbar {
-  display:flex;
-  justify-content:space-between;
-  padding:1rem 2rem;
-  position:sticky;
-  top:0;
-  backdrop-filter: blur(10px);
-  background: var(--glass);
-}
-
-.nav-links li {
-  display:inline;
-  margin-left:1rem;
-}
-
-.theme-btn {
-  cursor:pointer;
-  background:var(--accent);
-  padding:0.5rem 1rem;
-  border-radius:5px;
-  color:white;
-}
-
+/* 🔥 ОБНОВЛЕННЫЙ HERO С КАРТИНКОЙ */
 .hero {
   height:100vh;
-  background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
-  url('https://source.unsplash.com/1600x900/?developer,code') center/cover;
+  background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+    url('https://source.unsplash.com/1600x900/?website,code,developer') center/cover no-repeat;
+  color:white;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  color:white;
   text-align:center;
 }
 
-.btn {
-  padding:1rem 2rem;
-  background:var(--accent);
-  border:none;
-  color:white;
-  cursor:pointer;
-  transition:0.3s;
-}
+.hero .btn { padding:0.8rem 2rem; background:#ff6347; color:white; border:none; margin-top:1rem; cursor:pointer; border-radius:5px; transition:0.3s; }
+.hero .btn:hover { background:#e5533d; }
 
-.btn:hover {
-  transform:scale(1.05);
-}
+section { padding:5rem 2rem; text-align:center; }
 
-section {
-  padding:5rem 2rem;
-}
+.service-cards { display:flex; flex-wrap:wrap; justify-content:center; gap:1rem; }
 
-.grid {
-  display:flex;
-  flex-wrap:wrap;
-  gap:1rem;
-  justify-content:center;
-}
+.card { background:#fff; padding:2rem; border-radius:10px; width:250px; box-shadow:0 4px 12px rgba(0,0,0,0.1); transition:0.3s; }
+.card:hover { transform: translateY(-5px); box-shadow:0 8px 16px rgba(0,0,0,0.15); }
 
-.card {
-  backdrop-filter: blur(15px);
-  background: var(--glass);
-  padding:2rem;
-  border-radius:15px;
-  width:260px;
-  transition:0.3s;
-}
+form { display:flex; flex-direction:column; max-width:400px; margin:auto; gap:1rem; background:#fff; padding:2rem; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
 
-.card:hover {
-  transform:translateY(-10px);
-}
+input, textarea { padding:0.8rem; border-radius:5px; border:1px solid #ccc; transition:0.3s; }
 
-.portfolio img {
-  width:100%;
-  border-radius:10px;
-}
+input:focus, textarea:focus { border-color:#ff6347; outline:none; box-shadow:0 0 5px rgba(255,99,71,0.5); }
 
-form {
-  max-width:400px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:1rem;
-}
+button { padding:0.8rem; border:none; background:#333; color:white; border-radius:5px; cursor:pointer; transition:0.3s; }
+button:hover { background:#555; }
 
-input, textarea {
-  padding:0.8rem;
-  border-radius:5px;
-  border:none;
-}
+.social { margin-top:1rem; }
+.social a { margin:0 0.5rem; font-weight:bold; transition:0.3s; }
+.social a:hover { color:#ff6347; }
 
-.hidden {
-  opacity:0;
-  transform:translateY(40px);
-}
+footer { background:#222; color:white; padding:2rem; margin-top:2rem; }
 
-.show {
-  opacity:1;
-  transform:translateY(0);
-  transition: all 0.8s ease;
-}
+.success-message { display:none; margin-top:1rem; color:green; font-weight:bold; }
 
-footer {
-  text-align:center;
-  padding:2rem;
+@media(max-width:768px){
+  .service-cards { flex-direction:column; align-items:center; }
 }
 </style>
 </head>
 
 <body>
 
-<nav class="navbar">
-  <div>МойБренд</div>
-  <ul class="nav-links">
-    <li><a href="#home">Главная</a></li>
-    <li><a href="#portfolio">Портфолио</a></li>
-    <li><a href="#contact">Контакты</a></li>
-  </ul>
-  <div class="theme-btn" onclick="toggleTheme()">🌙</div>
-</nav>
+<header>
+  <nav class="navbar">
+    <div class="logo">МойСайт</div>
+    <ul class="nav-links">
+      <li><a href="#home">Главная</a></li>
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#services">Услуги</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+  </nav>
+</header>
 
-<section class="hero" id="home">
-  <h1 class="hidden">Создание сайтов</h1>
-  <p class="hidden">Делаю стильные и быстрые сайты под ключ</p>
-  <button class="btn hidden">Заказать</button>
+<section id="home" class="hero">
+  <h1>Добро пожаловать!</h1>
+  <p>Современный шаблон сайта с рабочей формой обратной связи.</p>
+  <a href="#contact" class="btn">Связаться с нами</a>
 </section>
 
-<section id="portfolio">
-  <h2 class="hidden">Мои работы</h2>
-  <div class="grid portfolio">
-    <div class="card hidden">
-      <img src="https://source.unsplash.com/400x300/?website" />
-      <p>Landing Page</p>
-    </div>
-    <div class="card hidden">
-      <img src="https://source.unsplash.com/400x300/?app" />
-      <p>Web App</p>
-    </div>
-    <div class="card hidden">
-      <img src="https://source.unsplash.com/400x300/?design" />
-      <p>UI Design</p>
-    </div>
+<section id="about">
+  <h2>О нас</h2>
+  <p>Мы создаем современные сайты с адаптивным дизайном.</p>
+</section>
+
+<section id="services">
+  <h2>Наши услуги</h2>
+  <div class="service-cards">
+    <div class="card"><h3>Дизайн</h3><p>Красивый и современный дизайн.</p></div>
+    <div class="card"><h3>Разработка</h3><p>Адаптивный и функциональный код.</p></div>
+    <div class="card"><h3>Поддержка</h3><p>Помощь и обновление сайта.</p></div>
   </div>
 </section>
 
 <section id="contact">
-  <h2 class="hidden">Связаться</h2>
+  <h2>Связаться с нами</h2>
 
-  <form id="form" action="https://formspree.io/f/mvzvrvny" method="POST" class="hidden">
-    <input name="name" placeholder="Имя" required>
-    <input name="email" placeholder="Email" required>
+  <form id="contactForm" action="https://formspree.io/f/mvzvrvny" method="POST">
+    <input type="text" name="name" placeholder="Ваше имя" required>
+    <input type="email" name="email" placeholder="Ваш Email" required>
     <textarea name="message" placeholder="Сообщение" required></textarea>
-    <button class="btn">Отправить</button>
-    <p id="msg"></p>
+    <button type="submit">Отправить</button>
+    <div class="success-message" id="successMessage">Спасибо! Ваше сообщение отправлено.</div>
   </form>
 
+  <div class="social">
+    <a href="https://wa.me/77075357950" target="_blank">WhatsApp</a>
+    <a href="https://www.instagram.com/r.nk0/" target="_blank">Instagram</a>
+    <a href="https://t.me/ruslaakz" target="_blank">Telegram</a>
+  </div>
 </section>
 
 <footer>
-  <p>© 2026 МойБренд</p>
+  <p>&copy; 2026 МойСайт. Все права защищены.</p>
 </footer>
 
 <script>
-function toggleTheme() {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-}
+const form = document.getElementById('contactForm');
+const successMessage = document.getElementById('successMessage');
 
-if(localStorage.getItem('theme') === 'dark') {
-  document.body.classList.add('dark');
-}
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
-    }
-  });
-});
-
-document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
-
-const form = document.getElementById('form');
-const msg = document.getElementById('msg');
-
-form.addEventListener('submit', function(e){
+form.addEventListener('submit', function(e) {
   e.preventDefault();
-
+  
+  const data = new FormData(form);
+  
   fetch(form.action, {
-    method:'POST',
-    body: new FormData(form),
-    headers:{ 'Accept':'application/json' }
-  }).then(res=>{
-    msg.innerText = "Сообщение отправлено!";
-    form.reset();
-  }).catch(()=>{
-    msg.innerText = "Ошибка!";
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(response => {
+    if (response.ok) {
+      successMessage.style.display = 'block';
+      form.reset();
+    } else {
+      alert('Ошибка при отправке. Попробуйте позже.');
+    }
+  }).catch(error => {
+    alert('Ошибка при отправке. Попробуйте позже.');
   });
 });
 </script>
