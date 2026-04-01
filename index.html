@@ -1,21 +1,232 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <title>Мой первый сайт</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Портфолио разработчика</title>
+
+<style>
+:root {
+  --bg: #f0f2f5;
+  --text: #222;
+  --glass: rgba(255,255,255,0.2);
+  --accent: #ff6347;
+}
+
+body.dark {
+  --bg: #0f172a;
+  --text: #f1f5f9;
+  --glass: rgba(255,255,255,0.05);
+}
+
+body {
+  margin:0;
+  font-family: Arial;
+  background: var(--bg);
+  color: var(--text);
+  transition:0.3s;
+}
+
+.navbar {
+  display:flex;
+  justify-content:space-between;
+  padding:1rem 2rem;
+  position:sticky;
+  top:0;
+  backdrop-filter: blur(10px);
+  background: var(--glass);
+}
+
+.nav-links li {
+  display:inline;
+  margin-left:1rem;
+}
+
+.theme-btn {
+  cursor:pointer;
+  background:var(--accent);
+  padding:0.5rem 1rem;
+  border-radius:5px;
+  color:white;
+}
+
+.hero {
+  height:100vh;
+  background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+  url('https://source.unsplash.com/1600x900/?developer,code') center/cover;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  text-align:center;
+}
+
+.btn {
+  padding:1rem 2rem;
+  background:var(--accent);
+  border:none;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:hover {
+  transform:scale(1.05);
+}
+
+section {
+  padding:5rem 2rem;
+}
+
+.grid {
+  display:flex;
+  flex-wrap:wrap;
+  gap:1rem;
+  justify-content:center;
+}
+
+.card {
+  backdrop-filter: blur(15px);
+  background: var(--glass);
+  padding:2rem;
+  border-radius:15px;
+  width:260px;
+  transition:0.3s;
+}
+
+.card:hover {
+  transform:translateY(-10px);
+}
+
+.portfolio img {
+  width:100%;
+  border-radius:10px;
+}
+
+form {
+  max-width:400px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+input, textarea {
+  padding:0.8rem;
+  border-radius:5px;
+  border:none;
+}
+
+.hidden {
+  opacity:0;
+  transform:translateY(40px);
+}
+
+.show {
+  opacity:1;
+  transform:translateY(0);
+  transition: all 0.8s ease;
+}
+
+footer {
+  text-align:center;
+  padding:2rem;
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>Привет! Я Руслан</h1>
-    <p>Это мой первый сайт на GitHub Pages</p>
-  </header>
 
-  <section>
-    <h2>Мои контакты</h2>
-    <p>Email: example@mail.com</p>
-    <button onclick="alert('Спасибо за сообщение!')">Связаться со мной</button>
-  </section>
+<nav class="navbar">
+  <div>МойБренд</div>
+  <ul class="nav-links">
+    <li><a href="#home">Главная</a></li>
+    <li><a href="#portfolio">Портфолио</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <div class="theme-btn" onclick="toggleTheme()">🌙</div>
+</nav>
 
-  <script src="script.js"></script>
+<section class="hero" id="home">
+  <h1 class="hidden">Создание сайтов</h1>
+  <p class="hidden">Делаю стильные и быстрые сайты под ключ</p>
+  <button class="btn hidden">Заказать</button>
+</section>
+
+<section id="portfolio">
+  <h2 class="hidden">Мои работы</h2>
+  <div class="grid portfolio">
+    <div class="card hidden">
+      <img src="https://source.unsplash.com/400x300/?website" />
+      <p>Landing Page</p>
+    </div>
+    <div class="card hidden">
+      <img src="https://source.unsplash.com/400x300/?app" />
+      <p>Web App</p>
+    </div>
+    <div class="card hidden">
+      <img src="https://source.unsplash.com/400x300/?design" />
+      <p>UI Design</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="hidden">Связаться</h2>
+
+  <form id="form" action="https://formspree.io/f/mvzvrvny" method="POST" class="hidden">
+    <input name="name" placeholder="Имя" required>
+    <input name="email" placeholder="Email" required>
+    <textarea name="message" placeholder="Сообщение" required></textarea>
+    <button class="btn">Отправить</button>
+    <p id="msg"></p>
+  </form>
+
+</section>
+
+<footer>
+  <p>© 2026 МойБренд</p>
+</footer>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+if(localStorage.getItem('theme') === 'dark') {
+  document.body.classList.add('dark');
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
+  });
+});
+
+document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+
+const form = document.getElementById('form');
+const msg = document.getElementById('msg');
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  fetch(form.action, {
+    method:'POST',
+    body: new FormData(form),
+    headers:{ 'Accept':'application/json' }
+  }).then(res=>{
+    msg.innerText = "Сообщение отправлено!";
+    form.reset();
+  }).catch(()=>{
+    msg.innerText = "Ошибка!";
+  });
+});
+</script>
+
 </body>
 </html>
